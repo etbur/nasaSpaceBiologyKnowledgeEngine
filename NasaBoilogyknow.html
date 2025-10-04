@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etbur Hub | NASA Space Biology Knowledge Engine</title>
+    <style>
+        :root {
+            --nasa-blue: #0b3d91;
+            --nasa-red: #fc3d21;
+            --nasa-dark: #1a1a2e;
+            --nasa-light: #f4f4f9;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--nasa-light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .text-center { text-align: center; }
+        .section-padding { padding: 4rem 0; }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; }
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+        }
+
+        .navbar {
+            background-color: var(--nasa-dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li { margin-left: 2rem; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: #aab6fe; }
+
+        .hero {
+            background: linear-gradient(135deg, var(--nasa-blue), var(--nasa-dark));
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .hero h1 { margin-bottom: 1rem; }
+        .hero .lead { margin-bottom: 2rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--nasa-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover { background-color: #e02a1d; }
+
+        .features { background-color: white; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-card h3 {
+            color: var(--nasa-blue);
+            margin-bottom: 1rem;
+        }
+
+        .research { background-color: #f8f9fa; }
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .research-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--nasa-blue);
+        }
+
+        .research-card h4 { color: var(--nasa-dark); margin-bottom: 0.5rem; }
+
+        /* === NEW: Interactive Simulation Section === */
+        .interactive-simulation {
+            background: linear-gradient(135deg, #1a2a6c, #2d3047);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .simulation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .simulation-controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .control-group select, .control-group input[type="range"] {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .simulation-visualization {
+            background: #3e4160;
+            border-radius: 8px;
+            padding: 2rem;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gravity-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--nasa-red);
+            margin: 1rem 0;
+        }
+
+        .organism-visual {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            border-radius: 50%;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+
+        /* === NEW: Chatbot Interface === */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-container.collapsed {
+            height: 60px;
+        }
+
+        .chatbot-header {
+            background: var(--nasa-blue);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .chatbot-title {
+            font-weight: bold;
+        }
+
+        .chatbot-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .message {
+            padding: 0.75rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: var(--nasa-blue);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .message.bot {
+            background: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        .chatbot-input button {
+            background: var(--nasa-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .dashboard-demo { background-color: var(--nasa-dark); color: white; }
+        .demo-container {
+            background: #2d3047;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .graph-placeholder {
+            background: #3e4160;
+            border-radius: 4px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background: #3e4160;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-btn.active { background-color: var(--nasa-blue); }
+
+        .footer {
+            background-color: var(--nasa-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--nasa-dark);
+                padding: 1rem 0;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links li { margin: 0.5rem 0; text-align: center; }
+
+            .simulation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .chatbot-container {
+                width: 300px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-container {
+                width: calc(100vw - 40px);
+                right: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Etbur Hub</a>
+            <button class="hamburger" id="hamburger">☰</button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#research">Research Areas</a></li>
+                <li><a href="#simulation">Interactive Simulation</a></li>
+                <li><a href="#demo">Knowledge Graph</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container text-center">
+            <h1>Unlock Decades of NASA Bioscience Knowledge</h1>
+            <p class="lead">Etbur Hub is an AI-powered knowledge engine that transforms thousands of NASA biology publications into an interactive, explorable map of discoveries. Accelerating research for the Artemis generation and beyond.</p>
+            <a href="#simulation" class="btn">Try Interactive Simulation</a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features section-padding">
+        <div class="container">
+            <h2 class="text-center">How Etbur Hub Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🤖 AI-Powered Processing</h3>
+                    <p>Natural Language Processing (NLP) models read and summarize complex NASA bioscience publications, extracting key entities, experimental conditions, and findings automatically :cite[9].</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🕸 Dynamic Knowledge Graph</h3>
+                    <p>See how experiments, biological systems, and mission parameters connect. Discover hidden relationships across decades of research that would be impossible to find manually :cite[9].</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔍 Intuitive Exploration</h3>
+                    <p>Search, filter, and visually traverse the data. Find relevant information in minutes, not days, with an interface designed for both researchers and students.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas Section -->
+    <section id="research" class="research section-padding">
+        <div class="container">
+            <h2 class="text-center">NASA Space Biology Research Areas</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h4>Animal Biology</h4>
+                    <p>Understanding how spaceflight affects model organisms like rodents and nematodes, examining metabolism, growth, and physiological adaptation to microgravity.</p>
+                </div>
+                <div class="research-card">
+                    <h4>Plant Biology</h4>
+                    <p>Research on plant growth, development, and metabolism in space, enabling sustainable food production for long-duration missions.</p>
+                </div>
+                <div class="research-card">
+                    <h4>Microbiology</h4>
+                    <p>Studying microbial communities in spacecraft, including changes in virulence, drug resistance, and their roles in life support systems.</p>
+                </div>
+                <div class="research-card">
+                    <h4>Cell & Molecular Biology</h4>
+                    <p>Investigating how spaceflight alters gene expression, protein function, and cellular communication at the most fundamental levels :cite[8].</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Interactive Simulation Section -->
+    <section id="simulation" class="interactive-simulation section-padding">
+        <div class="container">
+            <h2 class="text-center">Space Biology Interactive Simulation</h2>
+            <p class="text-center lead">Explore how different gravity levels affect biological systems. Adjust the parameters below to see real-time changes.</p>
+            
+            <div class="simulation-container">
+                <div class="simulation-controls">
+                    <div class="control-group">
+                        <label for="gravity-level">Gravity Level</label>
+                        <input type="range" id="gravity-level" min="0" max="100" value="100">
+                        <div class="gravity-value" id="gravity-value">1.0g</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="organism-type">Organism Type</label>
+                        <select id="organism-type">
+                            <option value="plant">Arabidopsis Thaliana (Plant)</option>
+                            <option value="mouse">Mouse (Mammal)</option>
+                            <option value="microbe">E. Coli (Microbe)</option>
+                            <option value="human">Human Cell Culture</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="duration">Exposure Duration</label>
+                        <select id="duration">
+                            <option value="short">Short-term (1-7 days)</option>
+                            <option value="medium">Medium-term (1-4 weeks)</option>
+                            <option value="long">Long-term (1-6 months)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn" id="run-simulation">Run Simulation</button>
+                </div>
+                
+                <div class="simulation-visualization">
+                    <h3>Simulation Output</h3>
+                    <div class="organism-visual" id="organism-visual">
+                        Plant
+                    </div>
+                    <div id="simulation-results">
+                        <p>Adjust parameters and run simulation to see biological effects...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Demo Section -->
+    <section id="demo" class="dashboard-demo section-padding">
+        <div class="container">
+            <h2 class="text-center">Interactive Knowledge Graph Explorer</h2>
+            <p class="text-center lead">Visualize connections across NASA Space Biology research. Click on filters to explore different biological systems and their relationships.</p>
+            
+            <div class="demo-container">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="all">All Research</button>
+                    <button class="filter-btn" data-filter="plant">Plant Biology</button>
+                    <button class="filter-btn" data-filter="animal">Animal Biology</button>
+                    <button class="filter-btn" data-filter="microbe">Microbiology</button>
+                    <button class="filter-btn" data-filter="cell">Cell & Molecular</button>
+                </div>
+                
+                <div class="graph-placeholder">
+                    <p>[Interactive Knowledge Graph Visualization Would Appear Here]</p>
+                    <p><small>In a full implementation, this area would display a dynamic D3.js force-directed graph showing connections between research papers, biological entities, and experimental results.</small></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Chatbot Interface -->
+    <div class="chatbot-container collapsed" id="chatbot-container">
+        <div class="chatbot-header" id="chatbot-header">
+            <div class="chatbot-title">Etbur Assistant</div>
+            <button class="chatbot-toggle" id="chatbot-toggle">+</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot">
+                Hello! I'm the Etbur Assistant. I can help you explore NASA space biology data, find relevant publications, and understand research concepts. How can I help you today?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Ask about space biology...">
+            <button id="chatbot-send">Send</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Built for the NASA Space Apps Challenge 2025 | Etbur Hub Team</p>
+            <p>This project responds to the "Build a Space Biology Knowledge Engine" challenge</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
+
+        // Filter Button Interactions
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                console.log(`Filtering by: ${filter}`);
+            });
+        });
+
+        // NEW: Interactive Simulation Functionality
+        const gravitySlider = document.getElementById('gravity-level');
+        const gravityValue = document.getElementById('gravity-value');
+        const organismType = document.getElementById('organism-type');
+        const organismVisual = document.getElementById('organism-visual');
+        const runSimulation = document.getElementById('run-simulation');
+        const simulationResults = document.getElementById('simulation-results');
+
+        gravitySlider.addEventListener('input', function() {
+            const gravity = this.value / 100;
+            gravityValue.textContent = `${gravity.toFixed(1)}g`;
+            
+            // Visual feedback based on gravity
+            if (gravity === 0) {
+                organismVisual.style.transform = 'scale(1.1)';
+                organismVisual.style.background = 'linear-gradient(45deg, #FF9800, #FF5722)';
+            } else if (gravity < 0.5) {
+                organismVisual.style.transform = 'scale(1.05)';
+                organismVisual.style.background = 'linear-gradient(45deg, #4CAF50, #FFC107)';
+            } else {
+                organismVisual.style.transform = 'scale(1)';
+                organismVisual.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)';
+            }
+        });
+
+        organismType.addEventListener('change', function() {
+            organismVisual.textContent = this.options[this.selectedIndex].text.split('(')[1].replace(')', '');
+        });
+
+        runSimulation.addEventListener('click', function() {
+            const gravity = gravitySlider.value / 100;
+            const organism = organismType.value;
+            const duration = document.getElementById('duration').value;
+            
+            // Simulate different outcomes based on parameters
+            let results = '';
+            
+            if (gravity === 0) {
+                results = `<p><strong>Microgravity Effects:</strong> Significant changes in gene expression, altered cell growth patterns, and potential disruption of normal biological processes. Research shows these effects become more pronounced with longer exposure times :cite[8].</p>`;
+            } else if (gravity < 0.5) {
+                results = `<p><strong>Partial Gravity Effects:</strong> Moderate adaptations in physiological processes. Some systems show resilience while others exhibit stress responses that could impact long-term health and development.</p>`;
+            } else {
+                results = `<p><strong>Earth Gravity (Control):</strong> Normal biological functions maintained. This serves as the baseline for comparing spaceflight effects on biological systems.</p>`;
+            }
+            
+            results += `<p><em>Simulation parameters: ${gravity.toFixed(1)}g, ${organismType.options[organismType.selectedIndex].text}, ${document.getElementById('duration').options[document.getElementById('duration').selectedIndex].text}</em></p>`;
+            
+            simulationResults.innerHTML = results;
+        });
+
+        // NEW: Chatbot Functionality
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotSend = document.getElementById('chatbot-send');
+
+        chatbotToggle.addEventListener('click', function() {
+            chatbotContainer.classList.toggle('collapsed');
+            this.textContent = chatbotContainer.classList.contains('collapsed') ? '+' : '−';
+        });
+
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user' : 'bot');
+            messageDiv.textContent = text;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        chatbotSend.addEventListener('click', function() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    let response = "I can help you explore NASA's space biology research. ";
+                    if (message.toLowerCase().includes('plant')) {
+                        response = "NASA has conducted extensive research on plant growth in microgravity, including studies on Arabidopsis thaliana and lettuce cultivation for life support systems :cite[2].";
+                    } else if (message.toLowerCase().includes('gene') || message.toLowerCase().includes('dna')) {
+                        response = "Spaceflight causes changes in gene expression and DNA damage repair mechanisms. The NASA GeneLab database provides detailed omics data from spaceflight experiments :cite[8]:cite[9].";
+                    } else if (message.toLowerCase().includes('microgravity')) {
+                        response = "Microgravity affects biological systems at multiple levels, from gene expression to whole-organism physiology. Key areas of study include immune function, bone density, and cardiovascular health.";
+                    } else if (message.toLowerCase().includes('mission') || message.toLowerCase().includes('iss')) {
+                        response = "The International Space Station has hosted numerous biology experiments. NASA provides Researcher's Guide Series with detailed protocols for ISS experiments :cite[2].";
+                    }
+                    addMessage(response, false);
+                }, 1000);
+            }
+        });
+
+        chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                chatbotSend.click();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.getElementById('nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
